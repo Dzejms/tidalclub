@@ -1,0 +1,99 @@
+d1 $ sound "lo [hi lo]*1.5"
+
+{- 
+    "lo [hi hi hi]" and "lo hi*3" are the same. They're treated as two beat inputs with the second input being a group of 3, 
+    which get staggered into triplets and spread over the allotted space which is two beats. So it's half note then staggered 
+    eigth note triplets in this measure.
+-}
+d1 $ s "lo [hi hi hi]"
+
+d1 $ s "lo hi*3"
+
+{- 
+    This one says, "Hey, instead of treating hi as one input, treat it as 3". Combined with the lo we have 4 inputs.
+    This means each one is a quarter note and we have four beats in the measure.
+-}
+d1 $ s "lo hi:2!3"
+
+{- 
+    This one says, "Hey, instead of treating hi as one input, treat it as 6". Combined with the lo we have 6 inputs.
+    I don't know how to count this musically. It's 7 notes spread out evenly over some regular cycle so it feels "wrong" 😆
+-}
+d2 $ s "lo hi!6"
+
+{-
+    This on is cool. "It says, hey, second beat, extend your valid input duration to 2 cycles." But since ther is only a 
+    trigger event on the first cycle, the second cycle is a rest. So it's |half, half|half, rest| essentially.
+-}
+d1 $ s "lo hi/2"
+
+{-
+    Again, two measures but this time we have two trigger messages to distribute between them. This ends up being |half,half|half,half|
+-}
+d1 $ s "lo [hi snare]/2"
+
+{-
+    Two measures, the lo conga gets hit on the downbeat of each. The hi conga comes in on 3 but the snare does not come in on 4, it on the "and" of 4; The
+    second eigth note of four. THEN in the second half of the second measure triggers the bass drum on the "a" of 3!
+-}
+d1 $ s "lo [hi snare bd]/2"
+
+{-
+    Twice as fast!
+-}
+d1 $ fast 2 $ s "lo [hi snare bd]/2"
+
+
+-- this
+d1 $ "bd sn"
+
+d2 $ "arpy*3"
+
+-- is the same as this
+d1 $ "[bd sn, arpy*3]"
+
+-- have some fun
+d1 $ "[bd sn, arpy*3, [lt mt]*2]"
+
+d1 $ "[bd sn, arpy*3, [lt mt]*2] [clap snare]"
+
+-- interesting. these 3 are the same
+d1 $ "[bd sn clap snare]"
+
+d1 $ "bd sn clap snare"
+
+d1 $ "[bd] [sn] [clap] [snare]"
+
+-- but this isn't
+d1 $ "[bd sn clap] [snare]"
+
+-- but this is?!?
+d1 $ "[bd sn] [snare clap]"
+
+{- I guess it's because it's 2 inputs which are then subdivided. 
+ Yeah the first one is 1 input that is subdivided by 4. 
+ The second and third are 4 inputs
+ the fourth is two inputs. That means two half measures or half notes. The first half measure is split into 3 and the second is just one input.
+-}
+
+-- The arps won't play here.. not sure why
+d1 $ "bd sd, arpy arpy:3 arpy:5"
+
+-- But this works
+d1 $ "[bd sd, arpy arpy:3 arpy:5]"
+-- So I guess comma multi polyphony stuff must be in groups
+
+-- On to this
+d1 $ "[bd sd, arpy arpy:3 arpy:5]"
+
+d1 $ "{bd sd, arpy arpy:3 arpy:5}"
+
+-- polyrhythm?!?
+-- no, it will just take whatever is in the second "group" and align with whatever is in the first
+d1 $ "{bd ht sd, arpy arpy:3 arpy:5 arpy:7}"
+
+-- Instead of the cycle being the refrence point, the steps are "in charge"
+
+
+
+hush

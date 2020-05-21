@@ -1,0 +1,6 @@
+d1 $ sound "bd sd"
+
+d2 $ sound "arpy"
+  # crush 4
+
+hush
