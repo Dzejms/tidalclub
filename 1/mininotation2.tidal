@@ -89,11 +89,45 @@ d1 $ "[bd sd, arpy arpy:3 arpy:5]"
 d1 $ "{bd sd, arpy arpy:3 arpy:5}"
 
 -- polyrhythm?!?
--- no, it will just take whatever is in the second "group" and align with whatever is in the first
+-- no, it's the opposite actually. Polyrhythm is what we normally get. This  will just take whatever is in the second "group" and align with whatever is in the first
 d1 $ "{bd ht sd, arpy arpy:3 arpy:5 arpy:7}"
 
 -- Instead of the cycle being the refrence point, the steps are "in charge"
 
+-- Interesting to not that I've been omitting "s" and "sound" and it's still worked. He said that earlier, a sound is the default. 
+-- But he keeps explicitly doing it and I prefer explicit code so I'll get in the habit as well.
+d1 $ sound "[bd sd] [mt ht lt] [arpy*4 arpy:3] [kick snare*4]"
 
+-- so that ^ is the same as this
+--d1 $ sound "bd sd . mt ht lt . arpy arpy:3*3 . kick snare*4"
+d1 $ sound "bd sd . mt ht lt . arpy*4 arpy:3 . kick snare*4"
+
+-- he calls this "rhythmic feet" and its purpose is to make things easier to reason about. 
+-- Doesn't seem like a clear advantage from this example but I've seen some really long strings in live coding context so maybe it helps there.
+-- Disadvantage is you can't nest sequences with '.' but you can insert [] and do it
+d1 $ sound "bd sd . mt [ht lt] . arpy*4 arpy:3 . kick snare*4"
+
+{- 
+    These two don't multiply like I expect with this rhythmic feet syntax. Must be misunderstanding something. 
+    He says he doesn't use this that much. Good to know it's there I guess
+    d1 $ sound "bd sd . mt [ht lt]*3 . arpy*4 arpy:3 . kick snare*4"
+    d1 $ sound "bd sd . mt [ht lt] . arpy*4 arpy:3*3 . kick snare*4"
+-}
+
+-- This
+d1 $ sound "hi [arpy arpy:1 arpy:2]/3"
+
+-- Is the same as this
+d1 $ sound "hi <arpy arpy:1 arpy:2>"
+
+-- The advantage is that if you want to change the number of possibilities in the second group, you don't need to the rembember to update the denominator
+-- Instead of this:
+d1 $ sound "hi [arpy arpy:1 arpy:2 arpy:4]/4"
+
+-- You only add the one
+d1 $ sound "hi <arpy arpy:1 arpy:2 arpy:4>"
+
+-- And you can still subdivide
+d1 $ sound "hi <arpy arpy:1 [arpy:2 arpy:5 arpy:3 arpy:5]*2 arpy:4>"
 
 hush
